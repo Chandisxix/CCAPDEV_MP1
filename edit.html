@@ -18,11 +18,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="assets/css/project-card.css">
     <link rel="stylesheet" href="assets/css/Tricky-Grid---2-Column-on-Desktop--Tablet-Flip-Order-of-12-Column-rows-on-Mobile.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Dark.css" />
 
 
 
 
     <style>
+
+
+        .hidden{
+            display: none;
+        }
+
+        .show_visible{
+            display: block;
+        }
+
+
 
         .ed_entry{
 
@@ -209,7 +221,55 @@
 
 </head>
 
+
+
+
+
 <body>
+
+
+
+    <div id="login" class="login-dark show_visible" style="background-image: url('assets/img/icecreambg.jpg');background-position: center;background-size: cover;">
+
+
+        <form class="border rounded border-dark shadow-lg" method="post" style="opacity: 0.95;">
+
+
+            <div class="illustration"><img src="assets/img/chan.png" style="width: 225px;" />
+            </div>
+
+
+            <div class="form-group">
+                
+                <input type="email" class="form-control" id="login_email" name="email" placeholder="Email" style="font-family: ABeeZee, sans-serif;" />
+
+            </div>
+
+
+            <div class="form-group">
+                
+                <input type="password" class="form-control" id="login_password" name="password" placeholder="Password" style="font-family: ABeeZee, sans-serif;" />
+
+            </div>
+
+
+            <div class="form-group">
+
+                <button class="btn btn-primary btn-block" id="login_button" type="button" style="background-color: rgb(250,255,0);color: rgb(0,0,0);">Log In</button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+
+
+<section id="website_content" class="hidden">
+
+
 
 
     <section id="header">
@@ -260,7 +320,11 @@
 
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" href="edit.html">Login to edit</a>
+
                         </li>
+
+
+                        <li class="nav-item" role="presentation"></li>
 
                     </ul>
 
@@ -287,7 +351,7 @@
                             <h1 class="text-left rubberBand animated"
                                 style="margin: 0px;padding: 0px;font-family: ABeeZee, sans-serif;width: 623px;">Henlu :D</h1>
                                 
-                                <span class="text-left subheading" data-bs-hover-animate="shake" style="font-family: ABeeZee, sans-serif;width: 537px;">Welcome to a website about ice crea- ME !</span>
+                                <span class="text-left subheading" data-bs-hover-animate="shake" style="font-family: ABeeZee, sans-serif;width: 537px;" contenteditable="true">Welcome to a website about ice crea- ME !</span>
                             
                         </div>
 
@@ -362,6 +426,21 @@
             <div class="row" id="ed_content">
             </div>
 
+            <form id="add_education_form">
+
+                <input type="number" name="edu_year_start" placeholder="Start Year" style="font-family: ABeeZee, sans-serif;">
+
+                <input type="number" name="edu_year_end" placeholder="End Year" style="font-family: ABeeZee, sans-serif;">
+
+                <input type="text" name="edu_school" placeholder="School Name" style="font-family: ABeeZee, sans-serif;">
+
+                <input type="text" name="edu_degree" placeholder="Degree Attained" style="font-family: ABeeZee, sans-serif;">
+
+                <br><br>
+                <button>Add School</button>
+
+            </form>
+
             <hr>
             <hr>
 
@@ -393,6 +472,21 @@
 
             <div class="row" id="org_content">
             </div>
+
+            <form id="add_organization_form">
+
+                <input type="number" name="org_year_start" placeholder="Start Year" style="font-family: ABeeZee, sans-serif;">
+
+                <input type="number" name="org_year_end" placeholder="End Year" style="font-family: ABeeZee, sans-serif;">
+
+                <input type="text" name="org_name" placeholder="Organization Name" style="font-family: ABeeZee, sans-serif;">
+
+                <input type="text" name="org_desc" placeholder="Position/Description" style="font-family: ABeeZee, sans-serif;">
+
+                <br><br>
+                <button>Add Organizaion</button>
+
+            </form>
 
             <hr>
             <hr>
@@ -427,6 +521,17 @@
                 <p class="post-subtitle" style="font-weight: 300;font-family: 'Open Sans', sans-serif;font-size: 28px;width: 100%;">Here are some of my previous coding projects !</p>
 
             </div>
+
+            <form id="add_works_form">
+
+                <input type="text" name="work_name" placeholder="Work/Project Name" style="font-family: ABeeZee, sans-serif;">
+
+                <input type="text" name="work_desc" placeholder="Work/Project Description" style="font-family: ABeeZee, sans-serif;">
+
+                <br><br>
+                <button>Add Work to Portfolio</button>
+
+            </form>
 
             <hr>
             <hr>
@@ -513,8 +618,16 @@
 
 
 
+
+
+
+
     <footer id="footer" style="background-image: url(&quot;assets/img/footer.png&quot;);background-size: cover;background-repeat: repeat;background-position: 0% 0%;background-color: rgb(255,255,255);height: 175px;"></footer>
 
+
+
+
+</section>
 
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
@@ -569,7 +682,12 @@
             let ij = document.createElement("p");
             let kl = document.createElement("p");
 
+            let edu_cross = document.createElement("button");
+            edu_cross.textContent = 'x';
+            $(edu_cross).addClass("float-right")
 
+
+            
             $(gh).text(edu_years)
             $(gh).addClass("school_year")
 
@@ -587,16 +705,70 @@
             $(cd).append(ij)
             $(cd).append(kl)
 
-            $(ef).addClass("ed_entry")
+            $(ef).addClass("ed_entry").attr("id", "edu_entry_")
+            $(ef).attr('data-id', doc.id)
+            $(ef).append(edu_cross)
             $(ef).append(ab)
             $(ef).append(cd)
 
+            
+
 
             $("#ed_content").append(ef)
+
+
+
+            // Delete data from EDUCATIONS collection
+            edu_cross.addEventListener('click', (e) => {
+
+                e.stopPropagation();
+
+                let id = e.target.parentElement.getAttribute('data-id');
+
+                db.collection("educations").doc(id).delete().then(function(){
+                    console.log("Item deleted");
+
+                }).catch(function(err){
+
+                    console.log("Error in deleting item: "+ err);
+
+                });
+
+            })
+
+            
+            
+            
         })
     });
 
 
+    // Add and save to EDUCATIONS collection
+
+    const form_edu = document.querySelector('#add_education_form');
+
+
+    form_edu.addEventListener('submit', (e) => {
+
+        e.preventDefault();
+
+        db.collection("educations").add({
+
+            school: form_edu.edu_school.value,
+            degree: form_edu.edu_degree.value,
+            year_start: form_edu.edu_year_start.value,
+            year_end: form_edu.edu_year_end.value
+
+        });
+
+        form_edu.edu_school.value= "";
+        form_edu.edu_degree.value= "";
+        form_edu.edu_year_start.value= "";
+        form_edu.edu_year_end.value= "";
+
+    })
+
+// =======================================================
 
     db.collection("organizations").orderBy("year_start").get().then(function(snapshot){
         snapshot.forEach(function(doc){
@@ -610,6 +782,11 @@
             let gh = document.createElement("p");
             let ij = document.createElement("p");
             let kl = document.createElement("p");
+
+            let org_cross = document.createElement("button");
+            org_cross.textContent = 'x';
+            $(org_cross).addClass("float-right")
+
 
 
             $(gh).text(org_years)
@@ -630,15 +807,65 @@
             $(cd).append(kl)
 
             $(ef).addClass("org")
+            $(ef).attr('data-id', doc.id)
+            $(ef).append(org_cross)
             $(ef).append(ab)
             $(ef).append(cd)
 
 
             $("#org_content").append(ef)
+
+
+
+            // Delete data from ORGANIZATIONS collection
+            org_cross.addEventListener('click', (e) => {
+
+                e.stopPropagation();
+
+                let id = e.target.parentElement.getAttribute('data-id');
+
+                db.collection("organizations").doc(id).delete().then(function(){
+                    console.log("Item deleted");
+
+                }).catch(function(err){
+
+                    console.log("Error in deleting item: "+ err);
+                    
+                });
+
+            })
+
+
         })
     });
 
 
+    // Add and save to ORGANIZATIONS collection
+
+    const form_org = document.querySelector('#add_organization_form');
+
+
+    form_org.addEventListener('submit', (e) => {
+
+        e.preventDefault();
+
+        db.collection("organizations").add({
+
+            name: form_org.org_name.value,
+            desc: form_org.org_desc.value,
+            year_start: form_org.org_year_start.value,
+            year_end: form_org.org_year_end.value
+
+        });
+
+        form_org.org_name.value= "";
+        form_org.org_desc.value= "";
+        form_org.org_year_start.value= "";
+        form_org.org_year_end.value= "";
+
+    })
+
+// =======================================================
 
     db.collection("works").get().then(function(snapshot){
         snapshot.forEach(function(doc){
@@ -650,6 +877,11 @@
             let ef = document.createElement("div");
             let gh = document.createElement("h4");
             let ij = document.createElement("p");
+
+            let work_cross = document.createElement("button");
+            work_cross.textContent = 'x';
+            $(work_cross).addClass("float-right")
+
 
 
             $(gh).text(port_name)
@@ -668,14 +900,59 @@
             $(cd).append(ab)
 
             $(ef).addClass("col-sm-6 text-center")
+            $(ef).attr('data-id', doc.id)
+            $(ef).append(work_cross)
             $(ef).append(cd)
 
 
             $("#port_content").append(ef)
+
+
+
+            // Delete data from WORKS collection
+            work_cross.addEventListener('click', (e) => {
+
+                e.stopPropagation();
+
+                let id = e.target.parentElement.getAttribute('data-id');
+
+                db.collection("works").doc(id).delete().then(function(){
+                    console.log("Item deleted");
+
+                }).catch(function(err){
+
+                    console.log("Error in deleting item: "+ err);
+                    
+                });
+
+            })
+
+
         })
     });
 
 
+    // Add and save to WORKS collection
+
+    var form_works = document.querySelector('#add_works_form');
+
+    form_works.addEventListener('submit', (e) => {
+
+        e.preventDefault();
+
+        db.collection("works").add({
+
+            name: form_works.work_name.value,
+            desc: form_works.work_desc.value
+
+        });
+
+        form_works.work_name.value= "";
+        form_works.work_desc.value= "";
+
+    })
+
+// =======================================================
 
     db.collection("others").get().then(function(snapshot){
         snapshot.forEach(function(doc){
@@ -686,6 +963,7 @@
 
             $(ab).text(about_me)
             $(ab).addClass("about_entry text-center post-subtitle")
+            $(ab).attr("contenteditable", "true")
 
             $("#about_content").append(ab)
 
@@ -703,13 +981,21 @@
     });
 
 
+    // Add and save to OTHERS collection
 
-    var newObject = {
-        name: "IEEE",
-        position: "Member",
-        year_start: "2014",
-        year_end: "2020"
-    }
+
+
+
+// ======================================================
+
+
+//    var newObject = {
+//        name: "IEEE",
+//        position: "Member",
+//        year_start: "2014",
+//        year_end: "2020"
+//    }
+
 
 
 //      === ADD ENTRY ===
@@ -728,25 +1014,53 @@
 
 
 
-    var email = "courtney.ngo@dlsu.edu.ph";
-    var password = "abcd1234";
+//  LOGIN: WORKS
+
+    $(document).ready(function(){
+
+		$("#login_button").click(function(){
+
+            let email = $("#login_email").val()
+            let password = $("#login_password").val()
 
 
-    firebase.auth().signInWithEmailAndPassword(email, password).then(function(user){
-        console.log("user signed in");
 
-        var user = firebase.auth().currentUser;
-        if (user != null){
-            console.log(user.email);
-        }
-    }).catch(function(err){
-        if(err.code == "auth/wrong-password"){
-            alert("wrong password")
-        }else{
-            alert(err.message);
-        }
+            firebase.auth().signInWithEmailAndPassword (email, password).then(function(user){
+
+                console.log("user signed in");
+
+                var user = firebase.auth().currentUser;
+
+
+
+                $("#login").attr("class", "hidden")
+
+
+                $("#website_content").attr("class", "show_visible")
+
+
+
+                if (user != null){
+
+                    console.log(user.email);
+
+                }
+
+            }).catch(function(err){
+
+                if(err.code == "auth/wrong-password"){
+
+                    alert("wrong password")
+
+                }else{
+
+                    alert(err.message);
+                }
         
-    });
+            });
+			
+		})
+	});
 
 
 
@@ -765,3 +1079,5 @@
 
 
 </html>
+
+
