@@ -565,9 +565,6 @@
                 <img class="rounded shadow" src="assets/img/hackerboi.jpg" style="height: 325px;margin-left: 285px;" />
 
 
-                <br><br><hr>
-                <button id="about_btn">Save Intro Edits</button> 
-
             </div>
             
             
@@ -609,8 +606,7 @@
                     <a id="github"><img src="assets/img/GitHub-Mark-120px-plus.png" style="width: 110px;">
                     </a>
 
-                    <br><br><hr>
-                    <button id="link_btn">Save Link Edits</button>
+
 
                 </h3> 
 
@@ -670,11 +666,12 @@
     firebase.analytics();
 
 
-
+//  =============================== INITIALIZE FIREBASE ===============================
 
     var db = firebase.firestore()
 
 
+//  =============================== FETCH EDUCATION DATA FROM FIREBASE ===============================
 
     db.collection("educations").orderBy("year_start").get().then(function(snapshot){
         snapshot.forEach(function(doc){
@@ -725,7 +722,8 @@
 
 
 
-            // Delete data from EDUCATIONS collection
+//  =============================== DELETE EDUCATION DATA FROM FIREBASE ===============================
+
             edu_cross.addEventListener('click', (e) => {
 
                 e.stopPropagation();
@@ -750,7 +748,7 @@
     });
 
 
-    // Add and save to EDUCATIONS collection
+//  =============================== ADD EDUCATION DATA TO FIREBASE ===============================
 
     const form_edu = document.querySelector('#add_education_form');
 
@@ -775,7 +773,7 @@
 
     })
 
-// =======================================================
+//  =============================== FETCH ORGANIZATIONS DATA FROM FIREBASE ===============================
 
     db.collection("organizations").orderBy("year_start").get().then(function(snapshot){
         snapshot.forEach(function(doc){
@@ -824,7 +822,8 @@
 
 
 
-            // Delete data from ORGANIZATIONS collection
+//  =============================== DELETE ORGANIZATIONS DATA FROM FIREBASE ===============================
+
             org_cross.addEventListener('click', (e) => {
 
                 e.stopPropagation();
@@ -847,7 +846,7 @@
     });
 
 
-    // Add and save to ORGANIZATIONS collection
+//  =============================== ADD ORGANIZATIONS DATA TO FIREBASE ===============================
 
     const form_org = document.querySelector('#add_organization_form');
 
@@ -872,7 +871,7 @@
 
     })
 
-// =======================================================
+//  =============================== FETCH WORK DATA FROM FIREBASE ===============================
 
     db.collection("works").get().then(function(snapshot){
         snapshot.forEach(function(doc){
@@ -916,7 +915,8 @@
 
 
 
-            // Delete data from WORKS collection
+//  =============================== DELETE WORK DATA FROM FIREBASE ===============================
+
             work_cross.addEventListener('click', (e) => {
 
                 e.stopPropagation();
@@ -939,7 +939,7 @@
     });
 
 
-    // Add and save to WORKS collection
+//  =============================== ADD WORK DATA TO FIREBASE ===============================
 
     var form_works = document.querySelector('#add_works_form');
 
@@ -959,9 +959,9 @@
 
     })
 
-// =======================================================
+//  =============================== FETCH INTRO DATA FROM FIREBASE ===============================
 
-    db.collection("others").get().then(function(snapshot){
+    db.collection("intro").get().then(function(snapshot){
         snapshot.forEach(function(doc){
             let about_me = doc.data().desc;
 
@@ -978,8 +978,42 @@
             $("#about_content").append(ab)
 
 
-// ===================================================== //
+            let editintrobtn = document.createElement("button");
 
+            $(editintrobtn).text("Save Intro Edits")
+
+
+            $("#about_content").append(editintrobtn)
+
+        })
+    });
+
+
+
+//  =============================== UPDATE INTRO DATA ===============================
+
+        const edit_about = document.querySelector("#about_content");
+
+        edit_about.addEventListener('click', (e) => {
+
+            var edit_about = document.getElementById("about_me_entry").textContent;
+
+
+
+            db.collection("intro").doc("aboutme").update({
+                desc: edit_about
+            })
+
+        });
+
+
+
+
+
+//  =============================== FETCH LINK DATA FROM FIREBASE ===============================
+
+    db.collection("contact").get().then(function(snapshot){
+        snapshot.forEach(function(doc){
 
             let link_linkedin = doc.data().linkedin;
             let link_twitter = doc.data().twitter;
@@ -991,7 +1025,7 @@
             $("#github").attr("href", link_github)
 
 
-    // UPDATE LINKS PART
+//  =============================== FETCH LINK DATA FOR UPDATING ===============================
 
             let ed1 = document.createElement("h3");
             let ed2 = document.createElement("h3");
@@ -1034,78 +1068,77 @@
             $("#contact_links").append(ed1)
 
 
+            let editcontactbtn = document.createElement("button");
+
+            $(editcontactbtn).text("Save Link Edits")
+
+
+            $("#contact_links").append(editcontactbtn)
+
+
         })
     });
 
 
-    // ========================================
+//  =============================== UPDATE LINK DATA ===============================
+
+        const edit_link1 = document.querySelector("#contact_links");
 
 
-    // UPDATE INTRO: WORKS!!!
+        edit_link1.addEventListener('click', (e) => {
 
-    const edit_about = document.querySelector("#about_content");
+            var edit_link1 = document.getElementById("link_edit_1").textContent;
 
-    edit_about.addEventListener('click', (e) => {
+            db.collection("contact").doc("links").update({
+                github: edit_link1
+            })
 
-        var edit_about = document.getElementById("about_me_entry").textContent;
 
-
-
-        db.collection("others").doc("aboutme").update({
-            desc: edit_about
-        })
-
-    });
+        });
 
 
 
-    // ========================================
+        const edit_link2 = document.querySelector("#contact_links");
 
 
-    // UPDATE CONTACT LINKS: WORKS!!!
+        edit_link2.addEventListener('click', (e) => {
 
-    const edit_link1 = document.querySelector("#contact_links");
+            var edit_link2 = document.getElementById("link_edit_2").textContent;
 
-    edit_link1.addEventListener('click', (e) => {
-
-        var edit_link1 = document.getElementById("link_edit_1").textContent;
-
-        db.collection("others").doc("links").update({
-            github: edit_link1
-        })
-
-    });
+            db.collection("contact").doc("links").update({
+                linkedin: edit_link2
+            })
 
 
-    const edit_link2 = document.querySelector("#contact_links");
-
-    edit_link2.addEventListener('click', (e) => {
-
-        var edit_link2 = document.getElementById("link_edit_2").textContent;
-
-        db.collection("others").doc("links").update({
-            linkedin: edit_link2
-        })
-
-    });
+        });
 
 
-    const edit_link3 = document.querySelector("#contact_links");
 
-    edit_link3.addEventListener('click', (e) => {
+        const edit_link3 = document.querySelector("#contact_links");
 
-        var edit_link3 = document.getElementById("link_edit_3").textContent;
 
-        db.collection("others").doc("links").update({
-            twitter: edit_link3
-        })
+        edit_link3.addEventListener('click', (e) => {
 
-    });
+            var edit_link3 = document.getElementById("link_edit_3").textContent;
+
+            db.collection("contact").doc("links").update({
+                twitter: edit_link3
+            })
+
+
+        });
 
 
 
 
-// ======================================================
+
+
+
+
+
+
+
+//  =============================== MISCELLANEOUS REFERENCE ===============================
 
 
 //    var newObject = {
@@ -1133,7 +1166,7 @@
 
 
 
-//      === LOGIN: WORKS ===
+//  =============================== LOGIN TO EDIT.HTML ===============================
 
     $(document).ready(function(){
 
