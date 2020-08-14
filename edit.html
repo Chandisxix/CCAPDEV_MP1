@@ -564,9 +564,13 @@
 
                 <img class="rounded shadow" src="assets/img/hackerboi.jpg" style="height: 325px;margin-left: 285px;" />
 
-                
+
+                <br><br><hr>
+                <button id="about_btn">Save Intro Edits</button> 
 
             </div>
+            
+            
 
             <hr>
             <hr>
@@ -592,7 +596,7 @@
 
             <div class="row" id="contact_content">
 
-                <h3 class="text-center post-subtitle" style="padding-bottom: 61px;font-size: 33px;font-weight: 300;width: 100%;">
+                <h3 id ="contact_links" class="text-center post-subtitle" style="padding-bottom: 61px;font-size: 33px;font-weight: 300;width: 100%;">
                     
                     <a id="linkedin" style="margin-left: 18px;">
                         <img src="assets/img/LI-In-Bug.png" style="width: 125px;">
@@ -605,7 +609,10 @@
                     <a id="github"><img src="assets/img/GitHub-Mark-120px-plus.png" style="width: 110px;">
                     </a>
 
-                </h3>
+                    <br><br><hr>
+                    <button id="link_btn">Save Link Edits</button>
+
+                </h3> 
 
             </div>
 
@@ -960,13 +967,18 @@
 
 
             let ab = document.createElement("h3");
+            
 
             $(ab).text(about_me)
             $(ab).addClass("about_entry text-center post-subtitle")
+            $(ab).attr("id", "about_me_entry")
             $(ab).attr("contenteditable", "true")
+
 
             $("#about_content").append(ab)
 
+
+// ===================================================== //
 
 
             let link_linkedin = doc.data().linkedin;
@@ -977,11 +989,118 @@
             $("#linkedin").attr("href", link_linkedin)
             $("#twitter").attr("href", link_twitter)
             $("#github").attr("href", link_github)
+
+
+    // UPDATE LINKS PART
+
+            let ed1 = document.createElement("h3");
+            let ed2 = document.createElement("h3");
+            let ed3 = document.createElement("h3");
+
+            let link1 = document.createElement("h3");
+            let link2 = document.createElement("h3");
+            let link3 = document.createElement("h3");
+
+
+            $(link1).text(link_linkedin)
+            $(link1).attr("contenteditable", "true")
+            $(link1).attr("id", "link_edit_1")
+
+            $(link2).text(link_twitter)
+            $(link2).attr("contenteditable", "true")
+            $(link2).attr("id", "link_edit_2")
+
+            $(link3).text(link_github)
+            $(link3).attr("contenteditable", "true")
+            $(link3).attr("id", "link_edit_3")
+
+
+
+            $(ed3).text("Link 3:")
+            $(ed3).append(link3)
+
+
+            $(ed2).text("Link 2:")
+            $(ed2).append(link2)
+            $(ed2).append(ed3)
+
+
+            $(ed1).text("Link 1:")
+            $(ed1).append(link1)
+            $(ed1).append(ed2)
+
+
+
+            $("#contact_links").append(ed1)
+
+
         })
     });
 
 
-    // Add and save to OTHERS collection
+    // ========================================
+
+
+    // UPDATE INTRO: WORKS!!!
+
+    const edit_about = document.querySelector("#about_content");
+
+    edit_about.addEventListener('click', (e) => {
+
+        var edit_about = document.getElementById("about_me_entry").textContent;
+
+
+
+        db.collection("others").doc("aboutme").update({
+            desc: edit_about
+        })
+
+    });
+
+
+
+    // ========================================
+
+
+    // UPDATE CONTACT LINKS: WORKS!!!
+
+    const edit_link1 = document.querySelector("#contact_links");
+
+    edit_link1.addEventListener('click', (e) => {
+
+        var edit_link1 = document.getElementById("link_edit_1").textContent;
+
+        db.collection("others").doc("links").update({
+            github: edit_link1
+        })
+
+    });
+
+
+    const edit_link2 = document.querySelector("#contact_links");
+
+    edit_link2.addEventListener('click', (e) => {
+
+        var edit_link2 = document.getElementById("link_edit_2").textContent;
+
+        db.collection("others").doc("links").update({
+            linkedin: edit_link2
+        })
+
+    });
+
+
+    const edit_link3 = document.querySelector("#contact_links");
+
+    edit_link3.addEventListener('click', (e) => {
+
+        var edit_link3 = document.getElementById("link_edit_3").textContent;
+
+        db.collection("others").doc("links").update({
+            twitter: edit_link3
+        })
+
+    });
 
 
 
@@ -1014,7 +1133,7 @@
 
 
 
-//  LOGIN: WORKS
+//      === LOGIN: WORKS ===
 
     $(document).ready(function(){
 
